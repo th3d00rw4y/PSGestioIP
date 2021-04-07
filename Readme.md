@@ -59,7 +59,7 @@ This password will be stored in $env:TEMP as a encrypted secure string only read
 `PSGestioIP` is currently only maintained by me. I will try to add as many features as possible.
 - 0.0.6 -2021.04.07
   - [x] Rewrote most of the public functions to work better.
-  - [x] Added support to be able to retrieve the network category list.
+  - [x] Added support to be able to retrieve the network category list from GestióIP API in `Sync-GestioCategory` and `Get-DynamicParameter`
       - [x] Thank you [Marc Uebel](https://github.com/muebel) for updating the API in like 15 minutes after I asked the question! 😊
   - [x] Changed name on:
       - [x] `Get-GestioSettings` -> `Get-GestioCategory`
