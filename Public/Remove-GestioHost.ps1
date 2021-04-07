@@ -4,7 +4,7 @@
     Deletes a host
 
     .DESCRIPTION
-    Utilizing the request type "deleteHost", this CMDlet will based on either Ip or Hostname remove a host entry in GestióIP.
+    Utilizing the request type "deleteHost", this function will based on either Ip or Hostname remove a host entry in GestióIP.
     The API documentation says the following:
         
     "IP addresses are unique. Hostnames may not be unique. If there are more than one host with the same 

@@ -4,7 +4,7 @@
     Retrieve a host.
     
     .DESCRIPTION
-    Utilizing the request type "readHost", this CMDlet will retrieve a host based on either Ip address or hostname.
+    Utilizing the request type "readHost", this function will retrieve a host based on either Ip address or hostname.
     
     .PARAMETER Ip
     Ip address of the host. The regex in validate pattern comes from: https://regexr.com/38odc Credit: rocka84

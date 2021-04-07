@@ -5,7 +5,7 @@ function Add-GestioHost {
     Add a host to GestióIP
 
     .DESCRIPTION
-    Utilizing the request type 'createHost', this CMDlet will create a host on the supplied Ip togehter with a hostname.
+    Utilizing the request type 'createHost', this function will create a host on the supplied Ip togehter with a hostname.
 
     .PARAMETER Ip
     Ip address that will be reserved for the host. The regex in validate pattern comes from: https://regexr.com/38odc Credit: rocka84
@@ -16,7 +16,7 @@ function Add-GestioHost {
     .PARAMETER Description
     A description of the host is always good pratice to provide.
 
-    .PARAMETER HostCategory
+    .PARAMETER Category
     Decides what category the new host will be given.
     A list of current categories will be populated in validate set upon first import of the module. 
     If new categories has been added to GestióIP, they can be synced with the Sync-GestioSetting CMDlet.

@@ -5,7 +5,7 @@
     Retrieves the first free Ip address from a network.
     
     .DESCRIPTION
-    Utilizing the request type "firstFreeNetworkAddress". This CMDlet will based on the Ip address provided retrieve the first free Ip address.
+    Utilizing the request type "firstFreeNetworkAddress". This function will based on the Ip address provided retrieve the first free Ip address.
     
     .PARAMETER Ip
     Network Ip address. The regex in validate pattern comes from: https://regexr.com/38odc Credit: rocka84

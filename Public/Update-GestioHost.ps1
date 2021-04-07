@@ -4,7 +4,7 @@
     Update a GestióIP host
 
     .DESCRIPTION
-    Utilizing the request type "updateHost". This CMDlet will based on Ip address update a host entry in GestióIP.
+    Utilizing the request type "updateHost". This function will based on Ip address update a host entry in GestióIP.
 
     .PARAMETER Ip
     Mandatory parameter. Provided Ip address will be the target for the update.

@@ -4,7 +4,7 @@
     Retrieve a network.
     
     .DESCRIPTION
-    Utilizing the request type "readNetwork", this CMDlet will retrieve information on the network of the Ip address provided.
+    Utilizing the request type "readNetwork", this function will retrieve information on the network of the Ip address provided.
     
     .PARAMETER Ip
     Ip address of the network. The regex in validate pattern comes from: https://regexr.com/38odc Credit: rocka84

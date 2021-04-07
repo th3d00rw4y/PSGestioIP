@@ -5,7 +5,7 @@
     Retrieve a list of hosts.
     
     .DESCRIPTION
-    Utilizing the request type "listHosts", this CMDlet will retrieve a list of hosts matching the search critera entered in the different parameters.
+    Utilizing the request type "listHosts", this function will retrieve a list of hosts matching the search critera entered in the different parameters.
     
     .PARAMETER Hostname
     Search for hosts based on hostname.

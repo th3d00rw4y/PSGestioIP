@@ -4,7 +4,7 @@
     Retrieve a list of networks.
     
     .DESCRIPTION
-    Utilizing the request type "listNetworks", this CMDlet will retrieve a list of networks matching the search critera entered in the different parameters.
+    Utilizing the request type "listNetworks", this function will retrieve a list of networks matching the search critera entered in the different parameters.
     
     .PARAMETER Comment
     Search for networks based on comment

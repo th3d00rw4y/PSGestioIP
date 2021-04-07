@@ -5,7 +5,7 @@
     Retrieves all free addresses from a network
     
     .DESCRIPTION
-    Utilizing the request type "freeNetworkAddresses", This CMDlet will retrieve all the free addresses from supplied network address
+    Utilizing the request type "freeNetworkAddresses", This function will retrieve all the free addresses from supplied network address
     
     .PARAMETER Ip
     Ip address of target network. The regex in validate pattern comes from: https://regexr.com/38odc Credit: rocka84
