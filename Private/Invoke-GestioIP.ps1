@@ -142,7 +142,7 @@ function Invoke-GestioIp {
         }
 
         Write-Host $Request
-        $URL     = "http://alipam01/gestioip/api/api.cgi$Request"
+        $URL     = "$Server$Request"
         $Headers = @{"Authorization"="Basic $(Get-AuthenticationToken -Credential $(Get-GestioCredential))"}
         
         $InvokeParams = @{
