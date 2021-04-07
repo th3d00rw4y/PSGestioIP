@@ -131,7 +131,7 @@
                 }
                 Description {
 
-                    if ('Comment' -in $WCMatch) {
+                    if ('Description' -in $WCMatch) {
                         $Description = "$Description$($InputObject['Description'])$MatchAll"
                     }
                     else {
@@ -142,7 +142,7 @@
                         $RequestString += ",$Description"
                     }
                     else {   
-                        $RequestString = "&filter=$Description1"
+                        $RequestString = "&filter=$Description"
                         $RequestStringStarted = $true
                     }
                 }
@@ -201,6 +201,7 @@
     }
     
     end {
+        Write-Host $RequestString -ForegroundColor Green
         return $RequestString
     }
 }

@@ -1,4 +1,4 @@
-function Get-GestioSetting {
+function Get-GestioCategory {
 
     [CmdletBinding()]
 
@@ -10,7 +10,8 @@ function Get-GestioSetting {
             Mandatory = $true
         )]
         [ValidateSet(
-            'Categories',
+            'HostCategories',
+            'NetworkCategories',
             'Sites'
         )]
         [string[]]
@@ -28,10 +29,15 @@ function Get-GestioSetting {
         
         switch ($Type) {
             
-            Categories {
-                Write-Host "Writing category list to: $CategoryFile" -ForegroundColor Green
-                $Result = Invoke-GestioIp -RequestType listCategories
-                $Result | Set-Content -Path $CategoryFile
+            HostCategories {
+                Write-Host "Writing host category list to: $HostCategoryFile" -ForegroundColor Green
+                $Result = Invoke-GestioIp -RequestType listCategories -CategoryType host
+                $Result | Set-Content -Path $HostCategoryFile
+            }
+            NetworkCategories {
+                Write-Host "Writing network category list to: $NetworkCategoryFile" -ForegroundColor Green
+                $Result = Invoke-GestioIp -RequestType listCategories -CategoryType network
+                $Result | Set-Content -Path $NetworkCategoryFile
             }
             Sites {
                 Write-Host "Writing site list to: $SiteFile" -ForegroundColor Green

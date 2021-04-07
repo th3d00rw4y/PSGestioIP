@@ -108,33 +108,40 @@ function Invoke-GestioIp {
         [string]
         $Client = $(Import-Csv -Path $ModuleRoot\Settings\Settings.csv).Client,
 
-        # Request string 
+        # Request string
         [Parameter(
             Position  = 6,
             Mandatory = $false
         )]
         [string]
-        $RequestString
+        $RequestString,
+
+        # What type of category list that will be returned
+        [Parameter(
+            Position  = 7,
+            Mandatory = $false
+        )]
+        [ValidateSet(
+            'host',
+            'network'
+        )]
+        [string]
+        $CategoryType
     )
     
     begin {
 
-        #Region Variable declaration
-
-        # This following regex is copied from https://regexr.com/38odc and will only approve valid ip-addresses.
-
-
-        # This following regex is copied from https://regex101.com/r/7Y455j/1 and will match everything inbetween the 4th and last comma, sometimes including commas.
-
-
         if ($Help -eq $true) {
             $RequestType = "$($RequestType)Help"
         }
+        if ($RequestType -eq 'listCategories') {
+            $Request = "?request_type=$RequestType&client_name=$Client&type=$CategoryType&output_type=$OutputType"
+        }
+        else {
+            $Request = "?request_type=$RequestType&client_name=$Client$RequestString&output_type=$OutputType"
+        }
 
-        $Request = "?request_type=$RequestType&client_name=$Client$RequestString&output_type=$OutputType"
-
-        #Write-Host $Request -ForegroundColor Green
-        
+        Write-Host $Request
         $URL     = "http://alipam01/gestioip/api/api.cgi$Request"
         $Headers = @{"Authorization"="Basic $(Get-AuthenticationToken -Credential $(Get-GestioCredential))"}
         
@@ -145,12 +152,10 @@ function Invoke-GestioIp {
             Method           = 'Get'
             DisableKeepAlive = $true
         }
-        
-        #endRegion Variable declaration
     }
     
     process {
-        $Response = Invoke-RestMethod @InvokeParams
+        $Global:Response = Invoke-RestMethod @InvokeParams
 
         $Result = Format-GestioResponse -InputObject $Response -RequestType $RequestType
     }

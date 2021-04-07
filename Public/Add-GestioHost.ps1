@@ -1,4 +1,5 @@
 function Add-GestioHost {
+
     <#
     .SYNOPSIS
     Add a host to GestióIP
@@ -7,13 +8,23 @@ function Add-GestioHost {
     Utilizing the request type 'createHost', this CMDlet will create a host on the supplied Ip togehter with a hostname.
 
     .PARAMETER Ip
-    Ip address that will be reserved for the host.
+    Ip address that will be reserved for the host. The regex in validate pattern comes from: https://regexr.com/38odc Credit: rocka84
 
     .PARAMETER Hostname
     Name of the host. Cannot contain whitespace, å-ö, commas or dots.
 
     .PARAMETER Description
     A description of the host is always good pratice to provide.
+
+    .PARAMETER HostCategory
+    Decides what category the new host will be given.
+    A list of current categories will be populated in validate set upon first import of the module. 
+    If new categories has been added to GestióIP, they can be synced with the Sync-GestioSetting CMDlet.
+
+    .PARAMETER Site
+    Decides what site the new host will be assigned to.
+    A list of current sites will be populated in validate set upon first import of the module. 
+    If new sites has been added to GestióIP, they can be synced with the Sync-GestioSetting CMDlet.
 
     .PARAMETER int_Admin
     Switch
@@ -30,7 +41,8 @@ function Add-GestioHost {
     Author:  Simon Mellergård
     Contact: https://github.com/th3d00rw4y
     #>
-    [CmdletBinding()]
+
+    [CmdletBinding(SupportsShouldProcess = $true)]
 
     param (
         # Reserves given ip address.
@@ -92,11 +104,11 @@ function Add-GestioHost {
 
     # Fetching Category and Site parameters with validate set based on information in GestióIP
     dynamicparam {
-        Get-DynamicParameter -Type Category, Site
+        Get-DynamicParameter -Type HostCategory, Site
     }
     
     begin {
-        # For logging
+        # For logging purposes
         $Component = $MyInvocation.MyCommand
 
         # What request type that will be sent to Invoke-GestioIp
@@ -107,7 +119,7 @@ function Add-GestioHost {
             $PSBoundParameters.Add('Comment', $Comment)
         }
 
-        # Sending $PSBoundParameters get correct request string back.
+        # Sending $PSBoundParameters to get correct request string back.
         $RequestString = Format-UsedParameters -InputObject $PSBoundParameters -Action Set
     }
     

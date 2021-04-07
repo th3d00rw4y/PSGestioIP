@@ -1,4 +1,23 @@
 ﻿function Get-GestioNetwork {
+    <#
+    .SYNOPSIS
+    Retrieve a network.
+    
+    .DESCRIPTION
+    Utilizing the request type "readNetwork", this CMDlet will retrieve information on the network of the Ip address provided.
+    
+    .PARAMETER Ip
+    Ip address of the network. The regex in validate pattern comes from: https://regexr.com/38odc Credit: rocka84
+    
+    .EXAMPLE
+    Get-GestioNetwork -Ip "192.168.1.0"
+    This example will return information on the 192.168.1.0 network.
+    
+    .NOTES
+    Version: 0.0.10
+    Author:  Simon Mellergård
+    Contact: https://github.com/th3d00rw4y
+    #>
 
     [CmdletBinding()]
 
@@ -16,18 +35,23 @@
     )
     
     begin {
+        # For logging purposes
         $Component = $MyInvocation.MyCommand
 
+        # What request type that will be sent to Invoke-GestioIp
         $RequestType = 'readNetwork'
 
+        # Sending $PSBoundParameters to get correct request string back.
         $RequestString = Format-UsedParameters -InputObject $PSBoundParameters -Action Get
     }
     
     process {
+        # Sends the request type and request string to the Invoke-GestioIp function.
         $Result = Invoke-GestioIP -RequestType $RequestType -RequestString $RequestString
     }
     
     end {
+        # Returns the result.
         return $Result
     }
 }

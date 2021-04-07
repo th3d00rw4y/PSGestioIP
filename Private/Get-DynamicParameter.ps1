@@ -9,22 +9,32 @@ function Get-DynamicParameter {
             Mandatory = $true
         )]
         [ValidateSet(
-            'Category',
+            'HostCategory',
+            'NetworkCategory',
             'Site'
         )]
         [string[]]
         $Type
     )
 
-    $ParamPosition = 3
-
     foreach ($string in $Type) {
 
-        if ($string -eq 'Category') {
-            $ParamPosition = 3
-        }
-        elseif ($string -eq 'Site') {
-            $ParamPosition = 4
+        switch ($Type) {
+            HostCategory    {
+                $ParamPosition = 3
+                # Generate and set the ValidateSet 
+                $arrSet = Get-Content -Path $(Get-Variable "$($string)File").Value
+                $string = $string.Replace('Host', '')
+            }
+            NetworkCategory {
+                $ParamPosition = 3
+                # Generate and set the ValidateSet 
+                $arrSet = Get-Content -Path $(Get-Variable "$($string)File").Value
+                $string = $string.Replace('Network', '')
+            }
+            Site {
+                $ParamPosition = 4
+            }
         }
         
         # Set the dynamic parameters' name
@@ -41,8 +51,7 @@ function Get-DynamicParameter {
         if (-not ($RuntimeParameterDictionary)) {
             $RuntimeParameterDictionary = New-Object System.Management.Automation.RuntimeDefinedParameterDictionary
         }
-        # Generate and set the ValidateSet 
-        $arrSet = Get-Content -Path $(Get-Variable "$($string)File").Value
+        
         $ValidateSetAttribute = New-Object System.Management.Automation.ValidateSetAttribute($arrSet)
         # Add the ValidateSet to the attributes collection
         $AttributeCollection.Add($ValidateSetAttribute)
@@ -50,57 +59,6 @@ function Get-DynamicParameter {
         $RuntimeParameter = New-Object System.Management.Automation.RuntimeDefinedParameter($ParamName, [string], $AttributeCollection)
         $RuntimeParameterDictionary.Add($ParamName, $RuntimeParameter)
     }
-
-<#     switch ($Type) {
-        
-        Category {
-            # Set the dynamic parameters' name
-            $ParamName_Category = 'Category'
-            # Create the collection of attributes
-            $AttributeCollection = New-Object System.Collections.ObjectModel.Collection[System.Attribute]
-            # Create and set the parameters' attributes
-            $ParameterAttribute = New-Object System.Management.Automation.ParameterAttribute
-            $ParameterAttribute.Mandatory = $false
-            $ParameterAttribute.Position = 3
-            # Add the attributes to the attributes collection
-            $AttributeCollection.Add($ParameterAttribute)
-            # Create the dictionary 
-            $RuntimeParameterDictionary = New-Object System.Management.Automation.RuntimeDefinedParameterDictionary
-            # Generate and set the ValidateSet 
-            $arrSet = Get-Content -Path $CategoriesFile
-            $ValidateSetAttribute = New-Object System.Management.Automation.ValidateSetAttribute($arrSet)
-            # Add the ValidateSet to the attributes collection
-            $AttributeCollection.Add($ValidateSetAttribute)
-            # Create and return the dynamic parameter
-            $RuntimeParameter = New-Object System.Management.Automation.RuntimeDefinedParameter($ParamName_Category, [string], $AttributeCollection)
-            $RuntimeParameterDictionary.Add($ParamName_Category, $RuntimeParameter)
-            
-        }
-        Site {
-            # Set the dynamic parameters' name
-            $ParamName_Site = 'Site'
-            # Create the collection of attributes
-            $AttributeCollection = New-Object System.Collections.ObjectModel.Collection[System.Attribute]
-            # Create and set the parameters' attributes
-            $ParameterAttribute = New-Object System.Management.Automation.ParameterAttribute
-            $ParameterAttribute.Mandatory = $false
-            $ParameterAttribute.Position = 4
-            # Add the attributes to the attributes collection
-            $AttributeCollection.Add($ParameterAttribute) 
-            # Create the dictionary
-            if (-not ($RuntimeParameterDictionary)) {
-                $RuntimeParameterDictionary = New-Object System.Management.Automation.RuntimeDefinedParameterDictionary
-            }
-            # Generate and set the ValidateSet 
-            $arrSet = Get-Content -Path $SitesFile
-            $ValidateSetAttribute = New-Object System.Management.Automation.ValidateSetAttribute($arrSet)    
-            # Add the ValidateSet to the attributes collection
-            $AttributeCollection.Add($ValidateSetAttribute)
-            # Create and return the dynamic parameter
-            $RuntimeParameter = New-Object System.Management.Automation.RuntimeDefinedParameter($ParamName_Site, [string], $AttributeCollection)
-            $RuntimeParameterDictionary.Add($ParamName_Site, $RuntimeParameter)
-        }
-    } #>
 
     return $RuntimeParameterDictionary
 }

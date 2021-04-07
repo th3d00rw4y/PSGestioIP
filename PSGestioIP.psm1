@@ -1,7 +1,8 @@
-﻿$Script:ModuleRoot     = $PSScriptRoot
-$Script:CredentialFile = "$env:TEMP\63571053cr37.xml"
-$Script:CategoryFile   = "$env:TEMP\GestioCategories.txt"
-$Script:SiteFile       = "$env:TEMP\GestioSites.txt"
+﻿$Script:ModuleRoot          = $PSScriptRoot
+$Script:CredentialFile      = "$env:TEMP\63571053cr37.xml"
+$Script:HostCategoryFile    = "$env:TEMP\GestioHostCategories.txt"
+$Script:NetworkCategoryFile = "$env:TEMP\GestioNetworkCategories.txt"
+$Script:SiteFile            = "$env:TEMP\GestioSites.txt"
 
 $Private = @(Get-ChildItem -Path $ModuleRoot\Private\*.ps1 -ErrorAction SilentlyContinue)
 $Public  = @(Get-ChildItem -Path $ModuleRoot\Public\*.ps1 -ErrorAction SilentlyContinue)
@@ -16,13 +17,13 @@ foreach ($Import in @($Private + $Public)) {
 }
 
 Export-ModuleMember -Function $Public.Basename
-Export-ModuleMember -Variable ModuleRoot, CategoryFile, SiteFile
+Export-ModuleMember -Variable ModuleRoot, HostCategoryFile, NetworkCategoryFile, SiteFile
 
 if (-not (Test-Path $CredentialFile)) {
     Clear-Host
     Save-GestioCredential -User 'gipadmin'
 }
 
-if ($false -in (Test-Path $CategoryFile, $SiteFile)) {
-    Get-GestioSetting -Type Categories, Sites
+if ($false -in (Test-Path $HostCategoryFile, $NetworkCategoryFile, $SiteFile)) {
+    Get-GestioSetting -Type HostCategories, NetworkCategories, Sites
 }
