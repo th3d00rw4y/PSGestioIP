@@ -1,27 +1,35 @@
 function Add-GestioHost {
     <#
     .SYNOPSIS
-    Short description
-    
-    .DESCRIPTION
-    Long description
-    
-    .PARAMETER Ip
-    Parameter description
-    
-    .PARAMETER Hostname
-    Sets the name for the host. Given name will be validated thru the following regex:
-        ^\S - fail if provided string contains a whitespace
-        [^å|ä|ö|Å|Ä|Ö|,|.] - will fail if any of the characters exists in provided string
-        *$ - match everything else.
-    
-    .EXAMPLE
-    An example
-    
-    .NOTES
-    General notes
-    #>
+    Add a host to GestióIP
 
+    .DESCRIPTION
+    Utilizing the request type 'createHost', this CMDlet will create a host on the supplied Ip togehter with a hostname.
+
+    .PARAMETER Ip
+    Ip address that will be reserved for the host.
+
+    .PARAMETER Hostname
+    Name of the host. Cannot contain whitespace, å-ö, commas or dots.
+
+    .PARAMETER Description
+    A description of the host is always good pratice to provide.
+
+    .PARAMETER int_Admin
+    Switch
+
+    .PARAMETER Comment
+    Is preconfigured to enter: "Added with Gestio powershell module: $(Get-Date -Format yyyy-MM-dd) - $($env:USERNAME)"
+
+    .EXAMPLE
+    Add-GestioHost -Ip 192.168.1.14 -Hostname "Sales_Printer023" -Description "Floor 3"
+    This example will add the host with Ip address 192.168.1.14, Hostname Sales_Printer023, Description Floor 3 and Comment Added with powershell module PSGestioIP: 2021-04-07 - MyUsername"
+
+    .NOTES
+    Version: 0.0.10
+    Author:  Simon Mellergård
+    Contact: https://github.com/th3d00rw4y
+    #>
     [CmdletBinding()]
 
     param (
@@ -70,7 +78,7 @@ function Add-GestioHost {
         [string]
         $int_Admin,
 
-        # Please provide a comment for the host, anything will do.
+        # Please provide a comment for the host, anything will do.. or leave it blank to auto populate the field.
         [Parameter(
             Position  = 6,
             Mandatory = $false
@@ -79,35 +87,37 @@ function Add-GestioHost {
             '^(?:[^,|.|_])*$'
         )]
         [string]
-        $Comment = "Added with Gestio powershell module: $(Get-Date -Format yyyy-MM-dd) - $($env:USERNAME)"
+        $Comment = "Added with powershell module PSGestioIP: $(Get-Date -Format yyyy-MM-dd) - $($env:USERNAME)"
     )
 
+    # Fetching Category and Site parameters with validate set based on information in GestióIP
     dynamicparam {
         Get-DynamicParameter -Type Category, Site
     }
     
     begin {
-        
+        # For logging
         $Component = $MyInvocation.MyCommand
 
+        # What request type that will be sent to Invoke-GestioIp
         $RequestType = 'createHost'
 
+        # If no comment has been supplied, the default one will be added.
         if (-not ($PSBoundParameters['Comment'])) {
             $PSBoundParameters.Add('Comment', $Comment)
         }
 
-        # $Global:Ps = $PSBoundParameters
-
+        # Sending $PSBoundParameters get correct request string back.
         $RequestString = Format-UsedParameters -InputObject $PSBoundParameters -Action Set
-
-        Write-Host $RequestString -ForegroundColor Yellow
     }
     
     process {
+        # Sends the request type and request string to the Invoke-GestioIp function.
         $Result = Invoke-GestioIp -RequestType $RequestType -RequestString $RequestString
     }
     
     end {
+        # Returns the result.
         return $Result
     }
 }
