@@ -19,18 +19,18 @@ function Add-GestioHost {
     .PARAMETER Category
     Decides what category the new host will be given.
     A list of current categories will be populated in validate set upon first import of the module. 
-    If new categories has been added to GestióIP, they can be synced with the Sync-GestioSetting CMDlet.
+    If new categories has been added to GestióIP, they can be synced with the Sync-GestioCategory function.
 
     .PARAMETER Site
     Decides what site the new host will be assigned to.
     A list of current sites will be populated in validate set upon first import of the module. 
-    If new sites has been added to GestióIP, they can be synced with the Sync-GestioSetting CMDlet.
+    If new sites has been added to GestióIP, they can be synced with the Sync-GestioCategory function.
 
     .PARAMETER int_Admin
     Switch
 
     .PARAMETER Comment
-    Is preconfigured to enter: "Added with Gestio powershell module: $(Get-Date -Format yyyy-MM-dd) - $($env:USERNAME)"
+    Is preconfigured to enter: "Added with powershell module PSGestioIP: $(Get-Date -Format yyyy-MM-dd) - $($env:USERNAME)"
 
     .EXAMPLE
     Add-GestioHost -Ip 192.168.1.14 -Hostname "Sales_Printer023" -Description "Floor 3"

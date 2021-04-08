@@ -6,7 +6,7 @@ function Sync-GestioCategory {
     .DESCRIPTION
     Synchronizes either Host, Network or Site categories. Or all of them.
     Categories will be stored in .txt files in $env:TEMP
-    The categories will be used to populate category validation sets in the modules CMDlets
+    The categories will be used to populate category validation sets in the modules functions
 
     .PARAMETER Type
     What type of category that will be synchronized. 

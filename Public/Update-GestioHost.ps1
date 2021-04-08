@@ -18,12 +18,12 @@
     .PARAMETER Category
     The new category for the host.
     A list of current host categories will be populated in validate set upon first import of the module.
-    If new host categories are added to GestióIP, they can be synced with the Sync-GestioSetting CMDlet.
+    If new host categories are added to GestióIP, they can be synced with the Sync-GestioCategory function.
 
     .PARAMETER Site
     The new site for the host.
     A list of current sites will be populated in validate set upon first import of the module. 
-    If new sites has been added to GestióIP, they can be synced with the Sync-GestioSetting CMDlet.
+    If new sites has been added to GestióIP, they can be synced with the Sync-GestioCategory function.
 
     .PARAMETER int_Admin
     -

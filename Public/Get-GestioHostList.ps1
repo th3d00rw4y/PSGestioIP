@@ -22,13 +22,13 @@
     .PARAMETER Category
     Choose a host category to streamline your search to only search for hosts in that category.
     A list of current host categories will be populated in validate set upon first import of the module.
-    If new host categories are added to GestióIP, they can be synced with the Sync-GestioSetting CMDlet.
+    If new host categories are added to GestióIP, they can be synced with the Sync-GestioCategory function.
     This parameter can be combined together with the Wildcard parameter.
 
     .PARAMETER Site
     Choose a site to retrieve hosts within that site.
     A list of current sites will be populated in validate set upon first import of the module. 
-    If new sites has been added to GestióIP, they can be synced with the Sync-GestioSetting CMDlet.
+    If new sites has been added to GestióIP, they can be synced with the Sync-GestioCategory function.
     This parameter can be combined together with the Wildcard parameter.
     
     .PARAMETER Wildcard
