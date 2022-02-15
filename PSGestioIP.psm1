@@ -25,5 +25,5 @@ if (-not (Test-Path $CredentialFile)) {
 }
 
 if ($false -in (Test-Path $HostCategoryFile, $NetworkCategoryFile, $SiteFile)) {
-    Get-GestioSetting -Type HostCategories, NetworkCategories, Sites
+    Get-GestioCategory -Type HostCategories, NetworkCategories, Sites
 }

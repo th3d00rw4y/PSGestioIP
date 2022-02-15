@@ -1,2 +1,2 @@
 ﻿Server, User, OutputType, Client
-http://YOURSERVER/gestioip/api/api.cgi, YOURUSER, xmlORjson, YOURCLIENT
+http://alipam01/gestioip/api/api.cgi, gipadmin, xml, DEFAULT

@@ -23,13 +23,13 @@ function Get-DynamicParameter {
             HostCategory    {
                 $ParamPosition = 3
                 # Generate and set the ValidateSet 
-                $arrSet = Get-Content -Path $(Get-Variable "$($string)File").Value
+                $arrSet = Get-Content -Encoding UTF8 -Path $(Get-Variable "$($string)File").Value
                 $string = $string.Replace('Host', '')
             }
             NetworkCategory {
                 $ParamPosition = 3
                 # Generate and set the ValidateSet 
-                $arrSet = Get-Content -Path $(Get-Variable "$($string)File").Value
+                $arrSet = Get-Content -Encoding UTF8 -Path $(Get-Variable "$($string)File").Value
                 $string = $string.Replace('Network', '')
             }
             Site {

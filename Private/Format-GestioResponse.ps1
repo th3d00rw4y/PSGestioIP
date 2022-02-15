@@ -192,7 +192,10 @@
             firstFreeVlan {}
             freeNetworkAddresses { $Result = $InputObject.freeNetworkAddressesResult.Network }
             getCustomNetworkColumnEntry {}
-            listCategories {$Result = $Objects | Get-Member -MemberType NoteProperty | Select-Object -ExpandProperty Name}
+            listCategories {
+                #$Result = $Objects | Get-Member -MemberType NoteProperty | Select-Object -ExpandProperty Name
+                $Result = $InputObject.listCategoriesResult.categoriesList.Category.Name
+            }
             listClients {}
             listCustomNetworkColumns {}
             listGlobalConfig {}
@@ -207,7 +210,7 @@
                 }
             }
             listRanges {}
-            listSites {$Result = $Objects | Get-Member -MemberType NoteProperty | Select-Object -ExpandProperty Name}
+            listSites {$Result = $InputObject.listSitesResult.siteList.Site.Name}
             listVlanProviders {}
             listVlans {}
             readAS {}
